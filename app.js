@@ -27,3 +27,4 @@ app.use('/api/scategories', scategorieRouter);
 app.use('/api/articles', articleRouter);
 app.listen(process.env.PORT)
 console.log("pplication run at port" + process.env.PORT)
+module.exports = app;
