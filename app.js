@@ -1,9 +1,12 @@
 //creation serveur nodejs avec express
-
+const cors = require('cors');
 const express=require("express")
 const dotenv= require("dotenv")
 // declare une instance de pakage expresse
 const app=express()
+app.use(cors({
+    origin: 'http://localhost:3000' // Ou '*' pour permettre l'accès à partir de n'importe quel domaine
+  }));
 const categorieRouter =require("./routes/categorie.route")
 const scategorieRouter =require("./routes/scategorie.route")
 const articleRouter =require("./routes/article.route")
