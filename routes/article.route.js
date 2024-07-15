@@ -24,6 +24,22 @@ res.status(404).json({ message: error.message });
 }
 });
 // chercher un article
+router.get('/art/pagination', async(req, res) => {
+    const page = parseInt(req.query.page);
+    const pageSize = parseInt(req.query.pageSize);
+    
+    // Calculate the start and end indexes for the requested page
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = page * pageSize;
+    const articles = await Article.find().populate("scategorieID").exec()
+    // Slice the products array based on the indexes
+    const paginatedProducts = articles.slice(startIndex, endIndex);
+    // Calculate the total number of pages
+    const totalPages = Math.ceil(articles.length / pageSize);
+    
+    // Send the paginated products and total pages as the API response
+    res.json({ products: paginatedProducts, totalPages });
+    });
 router.get('/:articleId',async(req, res)=>{
 try {
 const art = await Article.findById(req.params.articleId);
